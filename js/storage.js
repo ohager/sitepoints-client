@@ -1,11 +1,11 @@
-var sitepointsclient = sitepointsclient || {};
-sitepointsclient.Storage = function (config) {
+var _spc = _spc || {};
+_spc.Storage = function (config) {
 
     var self = this;
     var serverHost = config.serverHost;
     var cacheSize = config.cacheSize;
     var cacheTimeout = config.cacheTimeout * 1000; // in seconds
-    var timeoutHandle = undefined;
+    var timeoutHandle;
     var storage = [];
 
     var clear = function () {
@@ -15,10 +15,12 @@ sitepointsclient.Storage = function (config) {
     this.push = function (coords) {
         storage.push(coords);
 
-        clearTimeout(timeoutHandle);
-        timeoutHandle = setTimeout(function () {
-            self.flush();
-        }, cacheTimeout);
+        if(cacheTimeout > 0){
+            clearTimeout(timeoutHandle);
+            timeoutHandle = setTimeout(function () {
+                self.flush();
+            }, cacheTimeout);
+        }
 
         if (storage.length >= cacheSize) {
             self.flush();

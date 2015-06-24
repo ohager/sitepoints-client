@@ -1,5 +1,5 @@
-var sitepointsclient = sitepointsclient || {};
-sitepointsclient.Config = function (configuration) {
+var _spc = _spc || {};
+_spc.Config = function (configuration) {
 
     var config = configuration;
 
