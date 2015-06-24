@@ -3,14 +3,18 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <!-- inject:js -->
-    <script src="../js/config.js"></script>
-    <script src="../js/pointtracker.js"></script>
-    <script src="../js/storage.js"></script>
-    <!-- endinject -->
 
-    <script src="../js/api.js"></script>
+    <script type="application/javascript">
+        var mysp = { "id" : "oliverhager" };
 
+        (function(){
+            var script = document.createElement("script");
+            script.async = true;
+            script.src = "http://localhost:63342/sitepoints-client/js/main.js";
+            script.onload = function(){_spc.main(mysp);};
+            document.head.getElementsByTagName("script")[0].appendChild(script);
+        })();
+    </script>
 </head>
 <body>
 
