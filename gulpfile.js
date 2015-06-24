@@ -8,7 +8,7 @@ var inject = require('gulp-inject');
 
 
 gulp.task('release', function() {
-    return gulp.src('js/*.js')
+    return gulp.src('./js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter(jsstylish))
         .pipe(concat('sitepointsclient.min.js'))
@@ -18,8 +18,8 @@ gulp.task('release', function() {
 
 gulp.task('inject', function () {
     var target = gulp.src('./example/index.html');
-    var sources = gulp.src(['./js/**/*.js'], {read: false});
-    return  target.pipe(inject(sources))
+    var sources = gulp.src(['./js/**/*.js', '!./js/api.js'], {read: false});
+    return  target.pipe(inject(sources,{relative: true}))
                     .pipe(gulp.dest('./example'));
 });
 

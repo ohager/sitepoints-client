@@ -1,33 +1,37 @@
-function SitepointsClientStorage(config){
+var sitepointsclient = sitepointsclient || {};
+sitepointsclient.Storage = function (config) {
 
-    var self  = this;
-    var serverHost = config.server;
+    var self = this;
+    var serverHost = config.serverHost;
     var cacheSize = config.cacheSize;
-    var cacheExpiry = config.cacheExpiry * 1000; // in seconds
+    var cacheTimeout = config.cacheTimeout * 1000; // in seconds
     var timeoutHandle = undefined;
     var storage = [];
 
-    var clear = function(){
+    var clear = function () {
         storage = [];
     };
 
-    this.push = function(coords){
+    this.push = function (coords) {
         storage.push(coords);
 
         clearTimeout(timeoutHandle);
-        timeoutHandle = setTimeout( function(){
+        timeoutHandle = setTimeout(function () {
             self.flush();
-        }, cacheExpiry);
+        }, cacheTimeout);
 
-        if(storage.length >= cacheSize){
+        if (storage.length >= cacheSize) {
             self.flush();
         }
     };
 
+    this.data = function () {
+        return storage.slice();
+    };
 
-    this.flush = function(){
+    this.flush = function () {
         console.log("Flushed Storage");
         // pushes to server
         clear();
     };
-}
+};
