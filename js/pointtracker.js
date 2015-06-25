@@ -9,8 +9,8 @@ _spc.PointTracker = function () {
         point = {
             x : e.screenX,
             y : e.screenY,
-            url : window.href,
-            timestamp : Date.now()
+            url : window.location.href,
+            created : Date.now()
         };
 
         if(oldHandler){
