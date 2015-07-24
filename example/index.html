@@ -2,28 +2,24 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Sitepoints Client Usage Example</title>
-
-    <!-- inject:js -->
-    <script src="../js/config.js"></script>
-    <script src="../js/pointtracker.js"></script>
-    <script src="../js/storage.js"></script>
-    <!-- endinject -->
+    <title>Sitepoints Client Usage Example (RELEASE)</title>
 
     <script type="application/javascript">
-        var myspc = { "id" : "oliverhager" };
+        var myspc = {
+            apikey : "558CA1C79A01706400490B339CED740D1924E167BFEB795581DEB5BDB9F85DDA"
+        };
         (function(){
             var script = document.createElement("script");
             script.async = true;
-            script.src = "http://localhost:63342/sitepoints-client/js/spc.js";
+            script.src = "http://localhost:63342/sitepoints-client/dist/spc.js";
             script.onload = function(){_spc.main(myspc);};
             document.head.getElementsByTagName("script")[0].appendChild(script);
         })();
     </script>
 </head>
 <body>
-    <h2>Click elsewhere within the screen and watch the console!</h2>
-    <small style="text-align: center">DEV VERSION</small>
+    <h2>Click elsewhere within the screen!</h2>
+    <a href ="page1.html" >Next Page</a>
 </body>
 
 </html>

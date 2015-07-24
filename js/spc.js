@@ -3,11 +3,27 @@
  */
 var _spc = _spc || {};
 _spc.main = function (myspc) {
-    console.log("main: " + JSON.stringify(myspc));
+    var config = new _spc.Config(myspc);
     var tracker = new _spc.PointTracker();
-    var storage = new _spc.Storage(new _spc.Config());
-    tracker.startClickTracking(function (point) {
+    var storage = new _spc.Storage(config);
+
+    var oldUnloadHandler = window.onunload;
+
+    function pushToStorage(point){
         storage.push(point);
-        console.log(JSON.stringify(storage.data()));
-    })
+    }
+
+    tracker.startClickTracking(pushToStorage);
+    if(config.mouseTracking){
+        tracker.startIntervalTracking(pushToStorage,config.trackingInterval);
+    }
+
+    window.onunload = function(e){
+        storage.blockingFlush();
+        if(oldUnloadHandler){
+            oldUnloadHandler(e);
+        }
+    };
+
+
 };

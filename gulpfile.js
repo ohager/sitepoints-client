@@ -17,7 +17,7 @@ gulp.task('release', function() {
 });
 
 gulp.task('inject', function () {
-    var target = gulp.src('./example/index.html');
+    var target = gulp.src(['./example/*.dev.html']);
     var sources = gulp.src(['./js/**/*.js', '!./js/spc.js'], {read: false});
     return  target.pipe(inject(sources,{relative: true}))
                     .pipe(gulp.dest('./example'));

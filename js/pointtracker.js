@@ -1,27 +1,35 @@
 var _spc = _spc || {};
 _spc.PointTracker = function () {
     var intervalHandle;
-    var point;
+    var point = {};
     var oldMouseMoveHandler = window.onmousemove;
     var oldMouseClickHandler = window.onclick;
 
+
     var track = function(e, oldHandler){
-        point = {
-            x : e.screenX,
-            y : e.screenY,
-            url : window.location.href,
-            created : Date.now()
-        };
+        point.x = e.screenX;
+        point.y = e.screenY;
+        point.url = window.location.href;
+        point.created = Date.now();
 
         if(oldHandler){
             oldHandler(e);
         }
     };
 
+    var getPoint = function(){
+        return {
+            x : point.x,
+            y : point.y,
+            url : point.url,
+            created : point.created
+        };
+    };
+
     this.startClickTracking = function(listener){
         window.onclick = function(e){
             track(e, oldMouseClickHandler);
-            listener(point);
+            listener(getPoint());
         };
     };
 
@@ -38,7 +46,8 @@ _spc.PointTracker = function () {
         clearInterval(intervalHandle);
         setInterval(function () {
             if(!point) return;
-            listener(point);
+
+            listener(getPoint());
         }, interval);
     };
 
